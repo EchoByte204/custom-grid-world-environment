@@ -1,3 +1,13 @@
+---
+title: Warehouse Robot Navigation
+emoji: 🤖
+colorFrom: blue
+colorTo: purple
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # 🏭 Warehouse Robot Navigation Environment
 
 > **OpenEnv-compliant** real-world grid-world environment where AI agents learn
