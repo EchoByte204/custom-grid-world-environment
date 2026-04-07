@@ -67,6 +67,7 @@ env = WarehouseNavEnv()
 # ════════════════════════════════════════════════════════════
 
 @app.get("/")
+@app.get("/health")
 def health_check():
     """
     Health check endpoint.
@@ -77,7 +78,7 @@ def health_check():
         "environment": "Warehouse Robot Navigation Environment",
         "version":     "1.0.0",
         "tasks":       ["easy", "medium", "hard"],
-        "endpoints":   ["/reset", "/step", "/state", "/tasks", "/render", "/docs"],
+        "endpoints":   ["/reset", "/step", "/state", "/tasks", "/render", "/docs", "/health"],
     }
 
 
