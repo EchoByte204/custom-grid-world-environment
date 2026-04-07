@@ -1,0 +1,91 @@
+name: warehouse-robot-navigation-env
+version: 1.0.0
+description: >
+  A real-world warehouse robot navigation environment where AI agents
+  learn to navigate 2D grid floors, pick up packages, and deliver them
+  to shipping bays — while avoiding obstacles and optimizing efficiency.
+  Models the exact decision-making used by Amazon/DHL warehouse robots.
+
+author: openenv-participant
+tags:
+  - openenv
+  - navigation
+  - warehouse
+  - robotics
+  - pathfinding
+  - real-world
+  - grid-world
+
+tasks:
+  - id: easy
+    description: "Navigate 5×5 grid. Pick up 1 package. Deliver to 1 bay. Avoid 2 obstacles."
+    difficulty: easy
+    max_steps: 20
+    grid_size: [5, 5]
+    num_packages: 1
+    num_obstacles: 2
+
+  - id: medium
+    description: "Navigate 8×8 grid. Pick up 2 packages. Deliver to 1 bay. Avoid 6 obstacles."
+    difficulty: medium
+    max_steps: 40
+    grid_size: [8, 8]
+    num_packages: 2
+    num_obstacles: 6
+
+  - id: hard
+    description: "Navigate 12×12 grid. Pick up 3 packages. Deliver to 2 bays. Avoid 15 obstacles. Time pressure."
+    difficulty: hard
+    max_steps: 80
+    grid_size: [12, 12]
+    num_packages: 3
+    num_obstacles: 15
+
+action_space:
+  type: discrete
+  actions:
+    - move_up
+    - move_down
+    - move_left
+    - move_right
+    - pick_up
+    - drop_off
+    - wait
+
+observation_space:
+  task_id: string
+  step: integer
+  max_steps: integer
+  grid_size: list[integer]
+  agent_pos: list[integer]
+  packages: list[Package]
+  delivery_bays: list[DeliveryBay]
+  obstacles: list[list[integer]]
+  carrying: string_or_null
+  delivered_count: integer
+  total_packages: integer
+  current_score: float
+  remaining_issues: list[string]
+  message: string
+  ascii_grid: string
+
+reward:
+  type: continuous
+  range: [0.0, 1.0]
+  partial_credit: true
+  shaping: true
+  description: >
+    Rewards picking up packages (+0.15–0.25), delivering packages (+0.28–0.50),
+    moving toward targets (approach bonus), and completing all objectives
+    (efficiency bonus). Penalizes wall collisions, wasted actions, and time.
+
+endpoints:
+  reset: POST /reset
+  step:  POST /step
+  state: GET  /state
+  render: GET /render
+
+server:
+  host: 0.0.0.0
+  port: 7860
+  framework: fastapi
