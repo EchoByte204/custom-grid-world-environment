@@ -90,7 +90,7 @@ class WarehouseNavEnv:
         self.max_steps   = self.task["max_steps"]
         self.carrying    = None
         self.step_count  = 0
-        self.episode_score = 0.0
+        self.episode_score = grade(self.task["task_id"], self._raw_state())
         self.done        = False
         self._last_message = (
             f"Episode started. Task: {task_id}. "
