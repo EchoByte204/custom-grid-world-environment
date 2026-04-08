@@ -287,7 +287,7 @@ def run_task(task_id: str) -> float:
     # --- REQUIRED OPENENV END FORMAT ---
     success_bool = obs.get("delivered_count", 0) == obs.get("total_packages", -1)
     rewards_joined = ",".join(rewards_history) if rewards_history else "0.00"
-    print(f"[END] success={str(success_bool).lower()} steps={step_num} score={final_score:.4f} rewards={rewards_joined}")
+    print(f"[END] success={str(success_bool).lower()} steps={step_num} score={final_score:.2f} rewards={rewards_joined}")
 
     return final_score
 
@@ -330,11 +330,11 @@ def main():
     for tid, score in scores.items():
         filled = int(score * 25)
         bar    = "█" * filled + "░" * (25 - filled)
-        print(f"  {tid:8s} │ {bar} │ {score:.4f}")
+        print(f"  {tid:8s} │ {bar} │ {score:.2f}")
 
     if scores:
         avg = sum(scores.values()) / len(scores)
-        print(f"  {'AVERAGE':8s} │ {'─'*25} │ {avg:.4f}")
+        print(f"  {'AVERAGE':8s} │ {'─'*25} │ {avg:.2f}")
 
     print(f"{'═'*55}\n")
 

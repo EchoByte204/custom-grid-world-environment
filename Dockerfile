@@ -13,7 +13,7 @@ LABEL maintainer="openenv-participant"
 LABEL description="Warehouse Robot Navigation Environment for OpenEnv competition"
 
 # Set working directory
-WORKDIR /app
+WORKDIR /workspace
 
 # Install system dependencies (minimal)
 RUN apt-get update && apt-get install -y \
