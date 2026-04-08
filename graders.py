@@ -42,7 +42,8 @@ def grade(task_id: str, state: dict) -> float:
         raise ValueError(f"No grader for task_id='{task_id}'")
 
     raw = graders[task_id](state)
-    return round(max(0.0, min(1.0, raw)), 4)
+    # Strictly between 0 and 1 (exclusive boundaries)
+    return round(max(0.0001, min(0.9999, raw)), 4)
 
 
 # ══════════════════════════════════════════════════════════════
