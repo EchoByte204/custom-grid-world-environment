@@ -83,13 +83,16 @@ def health_check():
 
 
 @app.post("/reset", response_model=Observation)
-def reset(request: ResetRequest):
+def reset(request: ResetRequest = None):
     """
     Start a new episode.
 
-    Body: {"task_id": "easy" | "medium" | "hard"}
+    Body: {"task_id": "easy" | "medium" | "hard"} (Optional, defaults to easy)
     Returns: Initial Observation
     """
+    if request is None:
+        request = ResetRequest()
+        
     try:
         obs = env.reset(task_id=request.task_id)
         return obs
