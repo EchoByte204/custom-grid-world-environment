@@ -212,7 +212,7 @@ def run_task(task_id: str) -> float:
     resp.raise_for_status()
     obs = resp.json()
 
-    final_score  = 0.0
+    final_score  = 0.0001
     done         = False
     step_num     = 0
     error_count  = 0
@@ -287,7 +287,7 @@ def run_task(task_id: str) -> float:
     # --- REQUIRED OPENENV END FORMAT ---
     success_bool = obs.get("delivered_count", 0) == obs.get("total_packages", -1)
     rewards_joined = ",".join(rewards_history) if rewards_history else "0.00"
-    print(f"[END] success={str(success_bool).lower()} steps={step_num} score={final_score:.2f} rewards={rewards_joined}")
+    print(f"[END] success={str(success_bool).lower()} steps={step_num} score={final_score:.4f} rewards={rewards_joined}")
 
     return final_score
 
