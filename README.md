@@ -18,7 +18,7 @@ pinned: false
 
 ---
 
-## 📌 Why This Is Real-World (Not a Toy)
+## 📌 Environment Description and Motivation
 
 Warehouse robot navigation is a **billion-dollar industry problem**.
 Companies like Amazon, DHL, and Flipkart deploy thousands of autonomous robots
@@ -28,29 +28,7 @@ avoidance, and multi-step planning.
 
 ---
 
-## 🗂️ Project Structure
 
-```
-warehouse-nav-env/
-│
-├── 📄 README.md              ← You are here. Full documentation.
-├── 📄 .env.example           ← Copy this to .env and fill in your keys
-├── 📄 requirements.txt       ← All Python dependencies
-├── 📄 openenv.yaml           ← OpenEnv competition metadata
-├── 📄 Dockerfile             ← Container for HF Spaces deployment
-│
-├── 🐍 models.py              ← Pydantic typed models (Observation/Action/Reward)
-├── 🐍 tasks.py               ← 3 task definitions (easy → medium → hard)
-├── 🐍 graders.py             ← Deterministic scoring functions (0.0 → 1.0)
-├── 🐍 env.py                 ← CORE: Grid world logic, reset/step/state
-├── 🐍 app.py                 ← FastAPI HTTP server (exposes env over REST)
-├── 🐍 inference.py           ← Baseline LLM agent (runs all 3 tasks, prints scores)
-│
-├── 🐍 renderer.py            ← Optional: pygame visual renderer (local dev only)
-└── 🧪 test_env.py            ← Compatibility + smoke tests (run this first!)
-```
-
----
 
 ## 🎯 Tasks
 
@@ -204,26 +182,4 @@ docker run -p 7860:7860 --env-file .env warehouse-nav-env
 
 ---
 
-## 📡 API Reference
-
-| Method | Endpoint | Body | Description |
-|--------|----------|------|-------------|
-| GET | `/` | — | Health check |
-| POST | `/reset` | `{"task_id": "easy"}` | Start new episode |
-| POST | `/step` | `{"action_type": "move_right"}` | Take action |
-| GET | `/state` | — | Inspect current state |
-| GET | `/tasks` | — | List all tasks |
-| GET | `/render` | — | ASCII grid render |
-
 ---
-
-## 🔑 Key Files Explained
-
-| File | Why It Matters |
-|------|---------------|
-| `env.py` | **THE BRAIN** — all grid logic lives here |
-| `models.py` | Defines the language agent ↔ env speak |
-| `graders.py` | Judges score the agent fairly & deterministically |
-| `tasks.py` | Three carefully designed scenarios |
-| `inference.py` | **REQUIRED by competition** — must be named exactly this |
-| `openenv.yaml` | Competition metadata — validators read this |
